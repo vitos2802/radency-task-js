@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack v.5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="table">
+          <div class="container">
+            <div class="table__head">
+              <div class="table__column">Name</div>
+              <div class="table__column">Created</div>
+              <div class="table__column">Category</div>
+              <div class="table__column">Content</div>
+              <div class="table__column">Dates</div>
+              <div class="table__column"></div>
+          </div>
+          <ul class="table__list" id="table-list-js"></ul>
+          <button class="table__add-btn">Add todo</button>
+          </div>
+        </div>
+        <div class="modal-create">
+          <form class="create-form">
+            <input class="create-form__input" type="text" name="name" placeholder="name">
+            <select name="category">
+              <option value="task">Task</option>
+              <option value="random thought">Random Thought</option>
+              <option value="idea">Idea</option>
+            </select>
+
+            <textarea name="content"></textarea>
+
+            <button class="modal-create__btn" type="submit">Create</button>
+          </form>
+          <div class="modal-overlay"></div>
+        </div>
+    </div>
+</body>
+</html>

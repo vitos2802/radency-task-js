@@ -1,0 +1,14 @@
+{{#each this}}
+    <li class="table__item">
+        <div class="cell">{{name}}</div>
+        <div class="cell">{{created}}</div>
+        <div class="cell">{{category}}</div>
+        <div class="cell">{{content}}</div>
+        <div class="cell">{{dates}}</div>
+        <div class="cell">
+            <button class="edit" data-id="{{id}}">edit</button>
+            <button class="archiv" data-id="{{id}}">archiv</button>
+            <button class="delete" data-id="{{id}}">del</button>
+        </div>
+    </li>
+{{/each}}
