@@ -1,3 +1,11 @@
+.wrapper {
+  padding: 40px 0;
+}
+
+.table {
+  margin-bottom: 50px;
+}
+
 .table__head,
 .table__item {
   display: flex;
@@ -9,37 +17,143 @@
   margin-bottom: 15px;
 }
 
-.table__column,
-.cell {
+.table__column {
   display: flex;
   align-items: center;
-  width: 17%;
+  width: 16%;
+}
+.cell {
+  align-items: center;
+  width: 16%;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.cell_btn {
+  display: flex;
+  justify-content: end;
+}
+
+.table__column_btn {
+  display: flex;
+  justify-content: end;
 }
 
 .table__item {
   background-color: lightgray;
   color: #000;
+  align-items: center;
 }
 
-.modal-create {
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 5px;
+  background-color: gray;
+}
+
+.table__column_stats,
+.stats__cell {
+  width: 32%;
+}
+
+.modal {
   width: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
+  background-color: rgba($color: #0101, $alpha: 0.8);
   border: 2px solid grey;
   border-radius: 15px;
-  padding: 20px;
+  padding: 40px;
   display: none;
   opacity: 0;
 }
 
-.create-form {
+.modal_archive {
+  width: 100%;
+}
+
+.form {
   display: flex;
   flex-direction: column;
+}
+
+.input,
+.select,
+.content {
+  margin-bottom: 15px;
+}
+
+.content {
+  resize: none;
+}
+
+.cell_content {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.archive-btn,
+.edit,
+.archive,
+.delete,
+.unarchive {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 .is-open {
   display: block;
   opacity: 1;
+}
+
+.edit {
+  background-image: url('../images/pencil.png');
+}
+
+.delete {
+  background-image: url('../images/delete.png');
+}
+
+.archive {
+  background-image: url('../images/package-down.png');
+}
+
+.close {
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  background-image: url('../images/close.png');
+}
+
+.archive-btn {
+  background-image: url('../images/package-down-white.png');
+}
+
+.unarchive {
+  background-image: url('../images/package-up.png');
 }

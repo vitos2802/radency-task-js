@@ -10,31 +10,76 @@
         <div class="table">
           <div class="container">
             <div class="table__head">
+              <div class="icon"></div>
               <div class="table__column">Name</div>
               <div class="table__column">Created</div>
               <div class="table__column">Category</div>
               <div class="table__column">Content</div>
               <div class="table__column">Dates</div>
-              <div class="table__column"></div>
+              <div class="table__column table__column_btn">
+                <button class="archive-btn" type="button"></button>
+                <span class="delete-icon">
+                  <svg viewBox="0 0 24 24" fill='#fff'>
+                    <path d='M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z' />
+                  </svg>
+                </span>
+              </div>
           </div>
           <ul class="table__list" id="table-list-js"></ul>
           <button class="table__add-btn">Add todo</button>
           </div>
         </div>
-        <div class="modal-create">
-          <form class="create-form">
-            <input class="create-form__input" type="text" name="name" placeholder="name">
-            <select name="category">
-              <option value="task">Task</option>
-              <option value="random thought">Random Thought</option>
-              <option value="idea">Idea</option>
+
+        <div class="table">
+          <div class="container">
+            <div class="table__head table__head-stats">
+              <div class="icon"></div>
+              <div class="table__column table__column_stats">Note category</div>
+              <div class="table__column table__column_stats">Active</div>
+              <div class="table__column table__column_stats">Archive</div>
+            </div>
+            <ul class="table__list" id="table__list-stats"></ul>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-create">
+          <form class="form create-form">
+            <input class="input" type="text" name="name" placeholder="name">
+
+            <select class="select" name="category">
+              <option value="Task">Task</option>
+              <option value="Random thought">Random Thought</option>
+              <option value="Idea">Idea</option>
             </select>
 
-            <textarea name="content"></textarea>
+            <textarea class="content" name="content"></textarea>
+            <input type="date" name="dates">
 
             <button class="modal-create__btn" type="submit">Create</button>
           </form>
-          <div class="modal-overlay"></div>
+          <button class="close modal-create__close" type="button"></button>
+        </div>
+
+        <div class="modal" id="modal-edit">
+          <form class="form" id="edit-form">
+            <input class="input" id="edit-input" type="text" name="name">
+            <select class="select" id="edit-select" name="category">
+              <option value="Task">Task</option>
+              <option value="Random thought">Random Thought</option>
+              <option value="Idea">Idea</option>
+            </select>
+            <textarea class="content" id="content-edit" name="content"></textarea>
+            <input class="edit-date" type="date" name="dates">
+            <button type="submit">Save</button>
+          </form>
+          <button class="close modal-edit__close" type="button"></button>
+        </div>
+
+        <div class="modal modal_archive" id="modal-archive">
+          <div class="container">
+            <ul class="modal-archive-list"></ul>
+          </div>
+          <button class="close modal-archive__close" type="button"></button>
         </div>
     </div>
 </body>
