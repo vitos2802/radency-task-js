@@ -1,0 +1,12 @@
+{{#each this}}
+    <li class="table__item stats__item">
+        <div class="icon">
+            <svg viewBox="0 0 24 24" fill='#fff'>
+                <path d='{{icon}}' />
+            </svg>
+        </div>
+        <div class="cell stats__cell">{{category}}</div>
+        <div class="cell stats__cell">{{active}}</div>
+        <div class="cell stats__cell">{{archived}}</div>
+    </li>
+{{/each}}
