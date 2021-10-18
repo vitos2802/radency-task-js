@@ -3,8 +3,10 @@ import markupList from './js/markupList';
 import markupStatsList from './js/markupStatsList';
 import markupArchiveList from './js/markupArchiveList';
 import { mdiCartOutline, mdiHeadCog, mdiLightbulbOutline } from '@mdi/js';
-import formatDate from './js/date';
-import generateIcon from './js/taskIcon';
+import formatDate from './js/helpers/date';
+import generateIcon from './js/helpers/taskIcon';
+import searchDate from './js/helpers/searchDate';
+import stats from './js/helpers/stats';
 
 let db = [
   {
@@ -60,38 +62,12 @@ const editModal = document.querySelector('#modal-edit');
 const editInput = document.querySelector('#edit-input');
 const editSelect = document.querySelector('#edit-select');
 const editContent = document.querySelector('#content-edit');
-const editDate = document.querySelector('.dates');
 const closeModalBtn = document.querySelector('.close');
 const archiveBtn = document.querySelector('.archive-btn');
 const archiveModal = document.querySelector('.modal_archive');
 const archiveList = document.querySelector('.modal-archive-list');
 const closeArchiveModalBtn = document.querySelector('.modal-archive__close');
 const closeEditModalBtn = document.querySelector('.modal-edit__close');
-
-console.log(db);
-
-const stats = db => {
-  return db.reduce((acc, obj) => {
-    const newObj = {
-      icon: generateIcon(obj.category),
-      category: obj.category,
-      active: 0,
-      archived: 0,
-    };
-
-    obj.archived ? (newObj.archived += 1) : (newObj.active += 1);
-
-    const filterAcc = acc.find(obj => obj.category === newObj.category);
-
-    if (filterAcc && filterAcc.category === obj.category) {
-      obj.archived ? (filterAcc.archived += 1) : (filterAcc.active += 1);
-    } else {
-      acc.push(newObj);
-    }
-
-    return acc;
-  }, []);
-};
 
 const activeTodo = db => db.filter(todo => todo.archived === false);
 const archivedTodo = db => db.filter(todo => todo.archived === true);
@@ -105,20 +81,12 @@ const render = () => {
 
 render();
 
-const modalOpen = () => {
-  formModal.classList.add('is-open');
+const modalToggle = () => {
+  formModal.classList.toggle('is-open');
 };
 
-const closeModal = () => {
-  formModal.classList.remove('is-open');
-};
-
-const openModalEdit = () => {
-  editModal.classList.add('is-open');
-};
-
-const closeModalEdit = () => {
-  editModal.classList.remove('is-open');
+const toggleModalEdit = () => {
+  editModal.classList.toggle('is-open');
 };
 
 const closeArchiveModal = () => {
@@ -131,7 +99,7 @@ const addTodo = e => {
   const newTodo = {
     id: Date.now(),
     created: formatDate,
-    // dates: [],
+    dates: '',
     icon: '',
     archived: false,
   };
@@ -140,35 +108,30 @@ const addTodo = e => {
   formData.forEach((value, key) => {
     newTodo[key] = value;
   });
-  newTodo.dates = newTodo.dates.split(/-\s*/).reverse().join('/');
+  newTodo.dates = searchDate(newTodo.content)
+    ? searchDate(newTodo.content)
+    : '';
   newTodo.icon = generateIcon(newTodo.category);
 
   db = [...db, newTodo];
 
   render();
   createForm.reset();
-  closeModal();
-  console.log(newTodo);
+  modalToggle();
 };
 
 const editTodo = e => {
   e.preventDefault();
 
   if (e.target.closest('.edit')) {
-    openModalEdit();
+    toggleModalEdit();
     const id = e.target.dataset.id;
     const todo = db.find(todo => todo.id === +id);
 
     editInput.value = todo.name;
     editSelect.value = todo.category;
     editContent.value = todo.content;
-    // todo.name = todo.name;
-    // todo.category = todo.category;
-    // todo.content = todo.content;
-    // editDate.value = todo.dates;
-    console.log(todo);
 
-    // todo.dates = [...todo.created, ...formatDate];
     todo.created = formatDate;
     const lastDate = todo.dates;
     const saveChange = e => {
@@ -179,15 +142,15 @@ const editTodo = e => {
         todo[key] = value;
       });
 
-      todo.dates = lastDate
-        ? `${lastDate},
-        ${todo.dates.split(/-\s*/).reverse().join('/')}`
-        : todo.dates.split(/-\s*/).reverse().join('/');
+      todo.dates = searchDate(todo.content)
+        ? `${searchDate(todo.content)}, ${lastDate}`
+        : lastDate;
       todo.icon = generateIcon(todo.category);
-      tableList.textContent = '';
+
       createForm.reset();
-      closeModalEdit();
-      markupList(activeTodo(db));
+      toggleModalEdit();
+
+      render();
 
       editForm.removeEventListener('submit', saveChange);
     };
@@ -235,15 +198,13 @@ const unarchiveTodo = e => {
   }
 };
 
-addBtn.addEventListener('click', modalOpen);
-
+addBtn.addEventListener('click', modalToggle);
 createForm.addEventListener('submit', addTodo);
-
 tableList.addEventListener('click', deleteTodo);
 tableList.addEventListener('click', editTodo);
 tableList.addEventListener('click', archiveTodo);
-closeModalBtn.addEventListener('click', closeModal);
+closeModalBtn.addEventListener('click', modalToggle);
 archiveBtn.addEventListener('click', showArchiveList);
 archiveList.addEventListener('click', unarchiveTodo);
 closeArchiveModalBtn.addEventListener('click', closeArchiveModal);
-closeEditModalBtn.addEventListener('click', closeModalEdit);
+closeEditModalBtn.addEventListener('click', toggleModalEdit);
