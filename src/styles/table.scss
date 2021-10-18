@@ -9,7 +9,7 @@
 .table__head,
 .table__item {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 40px;
   background-color: gray;
   color: #fff;
@@ -31,14 +31,10 @@
   overflow: hidden;
 }
 
+.table__column_btn,
 .cell_btn {
   display: flex;
-  justify-content: end;
-}
-
-.table__column_btn {
-  display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .table__item {
